@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="FriedCrab.Supplier.uscProveedor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FriedCrab.Supplier"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="White"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+             d:DesignHeight="480" d:DesignWidth="1000" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Storyboard x:Key="botonCollapse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridButtons">
+                <EasingDoubleKeyFrame KeyTime="0" Value="390"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="botonOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="gridButtons">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.5" Value="390"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="stpCollapse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="stpDatos">
+                <EasingDoubleKeyFrame KeyTime="0" Value="360"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="stpOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="stpDatos">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.5" Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="dgvCollapse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="stpDataGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="820"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.5" Value="610"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="dgvOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="stpDataGrid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="610"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.5" Value="820"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCollapse">
+            <BeginStoryboard Storyboard="{StaticResource botonCollapse}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCollapseOpen">
+            <BeginStoryboard Storyboard="{StaticResource botonOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCancel">
+            <BeginStoryboard Storyboard="{StaticResource stpCollapse}"/>
+            <BeginStoryboard Storyboard="{StaticResource dgvOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnInsert">
+            <BeginStoryboard Storyboard="{StaticResource stpOpen}"/>
+            <BeginStoryboard Storyboard="{StaticResource dgvCollapse}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnUpdate">
+            <BeginStoryboard Storyboard="{StaticResource stpOpen}"/>
+            <BeginStoryboard Storyboard="{StaticResource dgvCollapse}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel>
+            <StackPanel Height="50">
+                <TextBlock Text="Administrar Proveedores" HorizontalAlignment="Center" Margin="10" FontSize="30" FontWeight="Bold"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <StackPanel x:Name="stpDataGrid" VerticalAlignment="Center" HorizontalAlignment="Left" Width="820">
+                        <DataGrid x:Name="dgvDatos" Margin="10"  Height="330" IsReadOnly="True" CanUserAddRows="False" SelectionChanged="dgvDatos_SelectionChanged" FontSize="16" BorderBrush="#FF3E3E3E" Background="#4F4061D8"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Height="80">
+                        <Grid Margin="10">
+                            <Button x:Name="btnCollapseOpen" Style="{StaticResource MaterialDesignFloatingActionLightButton}" ToolTip="MaterialDesignFloatingActionLightButton" BorderBrush="White" Background="#FFFF3700" Click="btnCollapseOpen_Click">
+                                <materialDesign:PackIcon Kind="KeyboardArrowRight" Height="35" Width="35" />
+                            </Button>
+                            <Button x:Name="btnCollapse" Style="{StaticResource MaterialDesignFloatingActionLightButton}" ToolTip="MaterialDesignFloatingActionLightButton" BorderBrush="White" Background="#FFFF3700" Visibility="Collapsed" Click="btnCollapse_Click">
+                                <materialDesign:PackIcon Kind="KeyboardArrowLeft" Height="35" Width="35" />
+                            </Button>
+                        </Grid>
+                        <Grid x:Name="gridButtons" Margin="10" HorizontalAlignment="Left" Width="390" Visibility="Collapsed" >
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnInsert" Content="Insertar" Width="110" Height="45" Margin="10 0 10 0" Click="btnInsert_Click" FontSize="20"/>
+                                <Button x:Name="btnUpdate" Content="Modificar" Width="110" Height="45" Margin="10 0 10 0" Click="btnUpdate_Click" FontSize="20"/>
+                                <Button x:Name="btnDelete" Content="Eliminar" Width="110" Height="45" Margin="10 0 10 0" Click="btnDelete_Click" FontSize="20"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel x:Name="stpDatos" Visibility="Collapsed">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Width="350" Height="400">
+                        <StackPanel Margin="10 100 10 10"  Width="340"  Height="100" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBox x:Name="txtName" materialDesign:HintAssist.Hint="Nombre Proveedor" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="170" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="txtPhone" materialDesign:HintAssist.Hint="Telefono/Celular" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="170" FontSize="16" FontWeight="Bold"/>
+                            
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button  x:Name="btnSave" Content="Guardar" Style="{StaticResource MaterialDesignRaisedButton}"
+    materialDesign:ButtonProgressAssist.Value="-1"
+    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+    materialDesign:ButtonProgressAssist.IsIndeterminate="True" Width="110" Height="45" Margin="10 0 10 0" Click="btnSave_Click"  FontSize="20"/>
+                            <Button x:Name="btnCancel" Content="Cancelar" Width="110" Height="45" Margin="10 0 10 0" Click="btnCancel_Click"  FontSize="20"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
